@@ -32,8 +32,8 @@
   };
 
   $(document).ready(function() {
-    var api;
-    api = new Api();
-    return api.getLastSha();
+    window.Api = Api;
+    window.api = new Api();
+    return window.api.getLastSha();
   });
 })();
