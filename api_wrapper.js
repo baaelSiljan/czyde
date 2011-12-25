@@ -17,12 +17,16 @@
     return $.ajax(data);
   };
   Layout.prototype.addElement = function(element) {
-    return $('#list').append('<div><img src="mask_ico.png" width="30" height="30"/>https://github.com/Baael/czyde/raw/master/preview/' + element.path + '</div>');
+    var link;
+    link = 'https://github.com/Baael/czyde/tree/master/preview/' + element.path;
+    $('#list').append('<div><a href="' + link + '"><img src="mask_ico.png" width="30" height="30"/>' + element.path + '</a></div>');
+    $('#list div:last').hide().fadeIn('40');
+    return $('#preloader').hide();
   };
   Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/3408c3da6d90c7476eef2291e3e0055620539f73', function(data) {
+    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/8c96ad79dc62baefe1f656c964fdae0d5894e237?' + Math.floor(Math.random() * 10000000), function(data) {
       var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {

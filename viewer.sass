@@ -1,14 +1,16 @@
 $left-column: 500px
 $preview-height: 500px
-$padding: 10px
+$padding: 5px
 
 body
   margin: 0
   padding: 0
+  font: 13.34px helvetica,arial,freesans,clean,sans-serif
+  line-height: 1.4
   *
     box-sizing: border-box
 
-#description, #list
+#description, #list, #preloader
   border: solid 1px #ccc
   position: absolute
   top: $padding
@@ -18,6 +20,10 @@ body
   width: $left-column
   left: $padding
 
-#list
+#list, #preloader
   right: $padding
-  left: (2 *  $padding) + $left-column
+  left: 2 * $padding + $left-column
+    
+#preloader
+  background: url(loader.gif) no-repeat center
+  
