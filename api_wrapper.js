@@ -33,7 +33,8 @@
       }
       return _a;
     })();
-    return this.getFilesInPreview();
+    return this.previewSha;
+    //@getFilesInPreview()
   };
   Api.prototype.getFilesInPreview = function() {
     var self;

@@ -19,7 +19,7 @@ class Api
 
   findPreviewSha: (data)->
     @previewSha = item.sha for item in data.data.tree when item.path is 'preview'
-    @getFilesInPreview()
+    #@getFilesInPreview()
     
   getFilesInPreview: ->
     self = @
