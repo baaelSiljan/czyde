@@ -2,19 +2,22 @@ class Api
   constructor: ->
     @address = "https://api.github.com/repos/baael/czyde/"
 
-  commits: ->
+  getJSONP: (url, callback)->
     self = @
     data: {
-      url: "https://api.github.com/repos/baael/czyde/commits"
+      url: url
       dataType: "jsonp"
       success: (data) ->
-        self.getLastCommit(data)
+        callback(data)
       }
     $.ajax(data)
-  
-  getLastCommit: (data)->
+
+  getLastSha: ->
+    @getJSONP('https://api.github.com/repos/baael/czyde/commits', @currentSha)
+
+  currentSha: (data)->
     console.log(data.data[0].sha)
-     
+
 
 $(document).ready ->
   @api = new Api()

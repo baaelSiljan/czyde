@@ -4,19 +4,22 @@
     this.address = "https://api.github.com/repos/baael/czyde/";
     return this;
   };
-  Api.prototype.commits = function() {
+  Api.prototype.getJSONP = function(url, callback) {
     var data, self;
     self = this;
     data = {
-      url: "https://api.github.com/repos/baael/czyde/commits",
+      url: url,
       dataType: "jsonp",
       success: function(data) {
-        return self.getLastCommit(data);
+        return callback(data);
       }
     };
     return $.ajax(data);
   };
-  Api.prototype.getLastCommit = function(data) {
+  Api.prototype.getLastSha = function() {
+    return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', this.currentSha);
+  };
+  Api.prototype.currentSha = function(data) {
     return console.log(data.data[0].sha);
   };
 
