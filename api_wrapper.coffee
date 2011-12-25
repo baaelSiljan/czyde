@@ -22,6 +22,7 @@ class Api
 
   getFilesInPreview: ->
     self = @
+    console.log 'https://api.github.com/repos/baael/czyde/git/trees/'+@sha
     @getJSONP 'https://api.github.com/repos/baael/czyde/git/trees/'+@sha, (data)->
       self.listFiles(data)
 
