@@ -21,8 +21,7 @@
   };
 
   $(document).ready(function() {
-    var api;
-    api = new Api();
-    return api;
+    this.api = new Api();
+    return this.api.commits();
   });
 })();
