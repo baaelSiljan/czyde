@@ -36,8 +36,10 @@ class Api
     self = @
     console.log 'https://api.github.com/repos/baael/czyde/git/trees/'+@previewSha
     @getJSONP 'https://api.github.com/repos/baael/czyde/git/trees/'+@previewSha, (data)->
-      console.log(data.data)
+      self.listTree(data.data.tree)
 
+  listTree: (list)->
+    console.log(item.url) for item in list
 
 $(document).ready ->
   api = new Api()

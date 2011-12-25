@@ -53,8 +53,17 @@
     self = this;
     console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha);
     return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha, function(data) {
-      return console.log(data.data);
+      return self.listTree(data.data.tree);
     });
+  };
+  Api.prototype.listTree = function(list) {
+    var _a, _b, _c, _d, item;
+    _a = []; _c = list;
+    for (_b = 0, _d = _c.length; _b < _d; _b++) {
+      item = _c[_b];
+      _a.push(console.log(item.url));
+    }
+    return _a;
   };
 
   $(document).ready(function() {
