@@ -14,7 +14,8 @@ class Api
 
   getLastSha: ->
     self = @
-    @getJSONP('https://api.github.com/repos/baael/czyde/commits', self.currentSha)
+    @getJSONP 'https://api.github.com/repos/baael/czyde/commits', (data)->
+      self.currentSha(data)
 
   listFiles: (data)->
     console.log data.data

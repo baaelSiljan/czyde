@@ -19,7 +19,9 @@
   Api.prototype.getLastSha = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', self.currentSha);
+    return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', function(data) {
+      return self.currentSha(data);
+    });
   };
   Api.prototype.listFiles = function(data) {
     return console.log(data.data);
