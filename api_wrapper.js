@@ -21,7 +21,7 @@
   };
   Api.prototype.currentSha = function(data) {
     this.sha = data.data[0].sha;
-    return this.sha;
+    return this.getFilesInPreview();
   };
   Api.prototype.getFilesInPreview = function() {
     console.log(this.sha);
@@ -33,7 +33,6 @@
 
   $(document).ready(function() {
     this.api = new Api();
-    this.api.getLastSha();
-    return this.api.getFilesInPreview();
+    return this.api.getLastSha();
   });
 })();

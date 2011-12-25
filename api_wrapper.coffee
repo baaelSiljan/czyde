@@ -17,6 +17,7 @@ class Api
 
   currentSha: (data)->
     @sha=data.data[0].sha
+    @getFilesInPreview();
 
   getFilesInPreview: ->
     console.log(@sha)
@@ -28,5 +29,5 @@ class Api
 $(document).ready ->
   @api = new Api()
   @api.getLastSha();
-  @api.getFilesInPreview();
+
   
