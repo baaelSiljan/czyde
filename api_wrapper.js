@@ -33,17 +33,21 @@
       }
       return _a;
     })();
-    return console.log(this.previewSha);
+    return this.getFilesInPreview();
   };
   Api.prototype.getFilesInPreview = function() {
     var self;
     self = this;
-    console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha);
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, function(data) {
+    console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha);
+    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha, function(data) {
       return self.findPreviewSha(data);
     });
   };
   Api.prototype.currentSha = function(data) {
+    this.sha = data.data[0].sha;
+    return this.getFilesInPreview();
+  };
+  Api.prototype.getPreviewTree = function(data) {
     this.sha = data.data[0].sha;
     return this.getFilesInPreview();
   };

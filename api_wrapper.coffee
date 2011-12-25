@@ -19,15 +19,19 @@ class Api
 
   findPreviewSha: (data)->
     @previewSha = item.sha for item in data.data.tree when item.path is 'preview'
-    console.log @previewSha
+    @getFilesInPreview()
     
   getFilesInPreview: ->
     self = @
-    console.log 'https://api.github.com/repos/baael/czyde/git/trees/'+@sha
-    @getJSONP 'https://api.github.com/repos/baael/czyde/git/trees/'+@sha, (data)->
+    console.log 'https://api.github.com/repos/baael/czyde/git/trees/'+@previewSha
+    @getJSONP 'https://api.github.com/repos/baael/czyde/git/trees/'+@previewSha, (data) ->
       self.findPreviewSha(data)
 
   currentSha: (data)->
+    @sha=data.data[0].sha
+    @getFilesInPreview()
+
+  getPreviewTree: (data)->
     @sha=data.data[0].sha
     @getFilesInPreview()
 
