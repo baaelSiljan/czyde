@@ -24,13 +24,21 @@
     });
   };
   Api.prototype.findPreviewSha = function(data) {
-    var _a, _b, _c, _d, item;
-    _a = []; _c = data.data.tree;
-    for (_b = 0, _d = _c.length; _b < _d; _b++) {
-      item = _c[_b];
-      _a.push(console.log(item));
+    var _a, _b, _c, _d, _e, _f, _g, item;
+    _b = data.data.tree;
+    for (_a = 0, _c = _b.length; _a < _c; _a++) {
+      item = _b[_a];
+      console.log(item);
     }
-    return _a;
+    this.previewSha = (function() {
+      _d = []; _f = data.data.tree;
+      for (_e = 0, _g = _f.length; _e < _g; _e++) {
+        item = _f[_e];
+        item.path === 'preview' ? _d.push(item.sha) : null;
+      }
+      return _d;
+    })();
+    return this.previewSha;
   };
   Api.prototype.getFilesInPreview = function() {
     var self;
