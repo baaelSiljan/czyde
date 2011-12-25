@@ -13,7 +13,7 @@ class Api
     $.ajax(data)
   
   getLastCommit: (data)->
-    console.log(data)
+    console.log(data.data)
      
 
 $(document).ready ->

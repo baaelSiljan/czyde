@@ -17,7 +17,7 @@
     return $.ajax(data);
   };
   Api.prototype.getLastCommit = function(data) {
-    return console.log(data);
+    return console.log(data.data);
   };
 
   $(document).ready(function() {
