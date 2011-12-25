@@ -25,6 +25,6 @@
 
   $(document).ready(function() {
     this.api = new Api();
-    return this.api.commits();
+    return this.api.getLastSha();
   });
 })();

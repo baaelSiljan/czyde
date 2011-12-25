@@ -21,5 +21,5 @@ class Api
 
 $(document).ready ->
   @api = new Api()
-  @api.commits();
+  @api.getLastSha();
   
