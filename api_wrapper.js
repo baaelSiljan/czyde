@@ -32,7 +32,8 @@
   };
 
   $(document).ready(function() {
-    this.api = new Api();
-    return this.api.getLastSha();
+    var api;
+    api = new Api();
+    return api.getLastSha();
   });
 })();

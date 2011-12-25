@@ -28,7 +28,7 @@ class Api
 
 
 $(document).ready ->
-  @api = new Api()
-  @api.getLastSha();
+  api = new Api()
+  api.getLastSha();
 
   
