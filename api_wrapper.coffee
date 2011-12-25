@@ -15,17 +15,17 @@ class Api
   getLastSha: ->
     @getJSONP('https://api.github.com/repos/baael/czyde/commits', @currentSha)
 
+  listFiles: (data)->
+    console.log data.data
+
   getFilesInPreview: ->
     console.log(@sha)
     @getJSONP('https://api.github.com/repos/baael/czyde/git/trees/'+@sha, @listFiles)
 
   currentSha: (data)->
     @sha=data.data[0].sha
-    @getFilesInPreview();
+    @getFilesInPreview()
 
-
-  listFiles: (data)->
-    console.log data.data
 
 $(document).ready ->
   @api = new Api()
