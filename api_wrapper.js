@@ -20,7 +20,13 @@
     return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', this.currentSha);
   };
   Api.prototype.currentSha = function(data) {
-    return console.log(data.data[0].sha);
+    return this.sha = this.sha || data.data[0].sha;
+  };
+  Api.prototype.getFilesInPreview = function() {
+    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, this.listFiles);
+  };
+  Api.prototype.listFiles = function(data) {
+    return console.log(data.data);
   };
 
   $(document).ready(function() {
