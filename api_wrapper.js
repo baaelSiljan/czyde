@@ -20,13 +20,12 @@
     var link;
     link = 'https://github.com/Baael/czyde/tree/master/preview/' + element.path;
     $('#list').append('<div><a href="' + link + '"><img src="mask_ico.png" width="30" height="30"/>' + element.path + '</a></div>');
-    $('#list div:last').hide().fadeIn('40');
     return $('#preloader').hide();
   };
   Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/8c96ad79dc62baefe1f656c964fdae0d5894e237?' + Math.floor(Math.random() * 10000000), function(data) {
+    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/6588676f616497374bdc7f4afe46c353707c3aee?' + Math.floor(Math.random() * 10000000), function(data) {
       var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
