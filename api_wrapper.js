@@ -31,6 +31,7 @@
 
   $(document).ready(function() {
     this.api = new Api();
-    return this.api.getLastSha();
+    this.api.getLastSha();
+    return this.api.getFilesInPreview();
   });
 })();
