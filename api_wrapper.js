@@ -20,9 +20,11 @@
     return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', this.currentSha);
   };
   Api.prototype.currentSha = function(data) {
-    return this.sha = this.sha || data.data[0].sha;
+    this.sha = data.data[0].sha;
+    return this.sha;
   };
   Api.prototype.getFilesInPreview = function() {
+    console.log(this.sha);
     return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, this.listFiles);
   };
   Api.prototype.listFiles = function(data) {
