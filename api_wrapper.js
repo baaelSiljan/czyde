@@ -23,15 +23,21 @@
       return self.currentSha(data);
     });
   };
-  Api.prototype.listFiles = function(data) {
-    return console.log(data.data);
+  Api.prototype.findPreviewSha = function(data) {
+    var _a, _b, _c, _d, item;
+    _a = []; _c = data.data.tree;
+    for (_b = 0, _d = _c.length; _b < _d; _b++) {
+      item = _c[_b];
+      _a.push(console.log(item));
+    }
+    return _a;
   };
   Api.prototype.getFilesInPreview = function() {
     var self;
     self = this;
     console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha);
     return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, function(data) {
-      return self.listFiles(data);
+      return self.findPreviewSha(data);
     });
   };
   Api.prototype.currentSha = function(data) {

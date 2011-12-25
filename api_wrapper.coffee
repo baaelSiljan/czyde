@@ -20,7 +20,6 @@ class Api
   findPreviewSha: (data)->
     for item in data.data.tree
       console.log item
-      @previewSha = item.sha if item.path === "preview"
       
   getFilesInPreview: ->
     self = @
