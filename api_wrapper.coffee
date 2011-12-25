@@ -1,4 +1,4 @@
-class Api
+class Layout
   constructor: ->
     @address = "https://api.github.com/repos/baael/czyde/"
 
@@ -12,37 +12,18 @@ class Api
       }
     $.ajax(data)
 
-  getLastSha: ->
+  addElement: (element)->
+    $('#list').append('<div><img src="mask_ico.png" width="30" height="30"/>https://github.com/Baael/czyde/raw/master/preview/'+element.path+'</div>')
+
+  listPreview: ->
     self = @
-    @getJSONP 'https://api.github.com/repos/baael/czyde/commits', (data)->
-      self.currentSha(data)
+    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/3408c3da6d90c7476eef2291e3e0055620539f73', (data)->
+      self.addElement item for item in data.data.tree
 
-  findPreviewSha: (data)->
-    @previewSha = item.sha for item in data.data.tree when item.path is 'preview'
-    console.log @previewSha
-    @getPreviewTree()
-    
-  getFilesInPreview: ->
-    self = @
-    console.log 'https://api.github.com/repos/baael/czyde/git/trees/'+@sha
-    @getJSONP 'https://api.github.com/repos/baael/czyde/git/trees/'+@sha, (data)->
-      self.findPreviewSha(data)
 
-  currentSha: (data)->
-    @sha=data.data[0].sha
-    @getFilesInPreview()
-
-  getPreviewTree: ->
-    self = @
-    console.log 'https://api.github.com/repos/baael/czyde/git/trees/'+@previewSha
-    @getJSONP 'https://api.github.com/repos/baael/czyde/git/trees/'+@previewSha, (data)->
-      self.listTree(data.data.tree)
-
-  listTree: (list)->
-    console.log(item.url) for item in list
 
 $(document).ready ->
-  api = new Api()
-  api.getLastSha();
+  layout = new Layout()
+  layout.listPreview();
 
   

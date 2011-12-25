@@ -1,0 +1,23 @@
+$left-column: 500px
+$preview-height: 500px
+$padding: 10px
+
+body
+  margin: 0
+  padding: 0
+  *
+    box-sizing: border-box
+
+#description, #list
+  border: solid 1px #ccc
+  position: absolute
+  top: $padding
+  bottom: $padding
+
+#description
+  width: $left-column
+  left: $padding
+
+#list
+  right: $padding
+  left: (2 *  $padding) + $left-column

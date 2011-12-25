@@ -1,0 +1,4 @@
+#!/bin/bash
+coffee -c api_wrapper.coffee
+sass viewer.sass viewer.css
+haml index.haml index.html 

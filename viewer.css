@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0; }
+  body * {
+    box-sizing: border-box; }
+
+#description, #list {
+  border: solid 1px #cccccc;
+  position: absolute;
+  top: 10px;
+  bottom: 10px; }
+
+#description {
+  width: 500px;
+  left: 10px; }
+
+#list {
+  right: 10px;
+  left: 520px; }

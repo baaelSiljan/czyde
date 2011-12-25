@@ -1,10 +1,10 @@
 (function(){
-  var Api;
-  Api = function() {
+  var Layout;
+  Layout = function() {
     this.address = "https://api.github.com/repos/baael/czyde/";
     return this;
   };
-  Api.prototype.getJSONP = function(url, callback) {
+  Layout.prototype.getJSONP = function(url, callback) {
     var data, self;
     self = this;
     data = {
@@ -16,59 +16,26 @@
     };
     return $.ajax(data);
   };
-  Api.prototype.getLastSha = function() {
+  Layout.prototype.addElement = function(element) {
+    return $('#list').append('<div><img src="mask_ico.png" width="30" height="30"/>https://github.com/Baael/czyde/raw/master/preview/' + element.path + '</div>');
+  };
+  Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', function(data) {
-      return self.currentSha(data);
-    });
-  };
-  Api.prototype.findPreviewSha = function(data) {
-    var _a, _b, _c, _d, item;
-    this.previewSha = (function() {
+    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/3408c3da6d90c7476eef2291e3e0055620539f73', function(data) {
+      var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
         item = _c[_b];
-        item.path === 'preview' ? _a.push(item.sha) : null;
+        _a.push(self.addElement(item));
       }
       return _a;
-    })();
-    console.log(this.previewSha);
-    return this.getPreviewTree();
-  };
-  Api.prototype.getFilesInPreview = function() {
-    var self;
-    self = this;
-    console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha);
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, function(data) {
-      return self.findPreviewSha(data);
     });
-  };
-  Api.prototype.currentSha = function(data) {
-    this.sha = data.data[0].sha;
-    return this.getFilesInPreview();
-  };
-  Api.prototype.getPreviewTree = function() {
-    var self;
-    self = this;
-    console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha);
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha, function(data) {
-      return self.listTree(data.data.tree);
-    });
-  };
-  Api.prototype.listTree = function(list) {
-    var _a, _b, _c, _d, item;
-    _a = []; _c = list;
-    for (_b = 0, _d = _c.length; _b < _d; _b++) {
-      item = _c[_b];
-      _a.push(console.log(item.url));
-    }
-    return _a;
   };
 
   $(document).ready(function() {
-    var api;
-    api = new Api();
-    return api.getLastSha();
+    var layout;
+    layout = new Layout();
+    return layout.listPreview();
   });
 })();
