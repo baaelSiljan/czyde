@@ -17,17 +17,17 @@
     return $.ajax(data);
   };
   Api.prototype.getLastSha = function() {
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', this.currentSha);
+    var self;
+    self = this;
+    return this.getJSONP('https://api.github.com/repos/baael/czyde/commits', self.currentSha);
   };
   Api.prototype.listFiles = function(data) {
     return console.log(data.data);
   };
   Api.prototype.getFilesInPreview = function() {
-    console.log(this.sha);
     return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, this.listFiles);
   };
   Api.prototype.currentSha = function(data) {
-    console.log(this);
     this.sha = data.data[0].sha;
     return this.getFilesInPreview();
   };

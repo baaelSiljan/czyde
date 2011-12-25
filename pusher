@@ -1,0 +1,3 @@
+coffee -c api_wrapper.coffee 
+git add .
+git commit -am "testing github api via jsonp - fun fun"
