@@ -27,8 +27,10 @@
     return console.log(data.data);
   };
   Api.prototype.getFilesInPreview = function() {
+    var self;
+    self = this;
     return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, function(data) {
-      return this.listFiles(data);
+      return self.listFiles(data);
     });
   };
   Api.prototype.currentSha = function(data) {
