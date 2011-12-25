@@ -33,14 +33,13 @@
       }
       return _a;
     })();
-    return this.previewSha;
-    //@getFilesInPreview()
+    return console.log(this.previewSha);
   };
   Api.prototype.getFilesInPreview = function() {
     var self;
     self = this;
     console.log('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha);
-    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.previewSha, function(data) {
+    return this.getJSONP('https://api.github.com/repos/baael/czyde/git/trees/' + this.sha, function(data) {
       return self.findPreviewSha(data);
     });
   };
