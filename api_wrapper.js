@@ -25,7 +25,7 @@
   Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/841b2f42aced06a23c235fa18aea53aeb738242a?' + Math.floor(Math.random() * 10000000), function(data) {
+    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/3c89af2bc2c3725dd9002c80be2aa4a8f2225cfb?' + Math.floor(Math.random() * 10000000), function(data) {
       var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
@@ -40,8 +40,14 @@
     var layout;
     layout = new Layout();
     layout.listPreview();
-    return layout.getJSONP('https://raw.github.com/Baael/czyde/master/preview/jacket/author.json', function(data) {
-      return console.log(data);
+    return $.ajax({
+      url: 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json',
+      type: 'GET',
+      dataType: 'jsonp',
+      mimeType: 'application/text',
+      complete: function(data) {
+        return console.log(data);
+      }
     });
   });
 })();
