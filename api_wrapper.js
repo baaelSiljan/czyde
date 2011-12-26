@@ -25,7 +25,7 @@
   Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/80f450924e236248ee49498f7e600a768976ee71?' + Math.floor(Math.random() * 10000000), function(data) {
+    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/674c93394dbb996c72b51f4f9096913f20813a75?' + Math.floor(Math.random() * 10000000), function(data) {
       var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
