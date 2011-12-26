@@ -50,6 +50,10 @@ body
   position: absolute
   top: $header-height + 2 * $padding
   bottom: $footer-height + ($padding * 2)
+  
+#description, #list
+  overflow-y: auto
+  overflow-x: hidden
 
 #footer
   position: absolute
@@ -68,32 +72,79 @@ body
     float: left
 
 
+#preview3d
+  background: -webkit-gradient(linear,left top,left bottom,from(#F4F4F4),to(#ECECEC))
+  background: -moz-linear-gradient(top,#F4F4F4,#ECECEC)
+  border: solid 1px #e0e0e0
+  box-shadow: 0 0 -1px #fff inset
+  border-radius: 3px
+  margin: 10px 0
+  display: none
+
+.in3d #preview3d
+  display: block
+
+
 #description
   width: $left-column
   left: $padding
   padding: $padding
+  #buttons
+    border-radius: 3px
+    border: solid 1px #CACACA
+    background: -webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EAEAEA))
+    background: -moz-linear-gradient(top,#FAFAFA,#EAEAEA)
+    background: -o-linear-gradient(top,#FAFAFA,#EAEAEA)
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 1.0)
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4),0 0 10px rgba(0,0,0,0.1)
+    height: 22px
+    a
+      display: block
+      float: left
+      height: 20px
+      line-height: 20px
+      text-decoration: none
+      padding: 0 1em
+      color: #000
+      border-left: 1px solid #FCFCFC
+      border-left-color: rgba(255, 255, 255, 0.7)
+      border-right: 1px solid #EEE
+      border-right-color: rgba(0, 0, 0, 0.04)
+      opacity: 0.3
+      img
+        margin: 2px 0
+      &:hover
+        opacity: 0.9
+      &#run3d
+        border-left: 1px solid #EEE
+        border-left-color: rgba(0, 0, 0, 0.04)
+        border-right: none
+        float: right
+      &.turned_on
+        opacity: 1.0
+
   h1
     margin: 0
   .author
     color: #666
-  img
-    background: -webkit-gradient(linear,left top,left bottom,from(#F4F4F4),to(#ECECEC))
-    background: -moz-linear-gradient(top,#F4F4F4,#ECECEC)
-    border: solid 1px #e0e0e0
-    box-shadow: 0 0 -1px #fff inset
-    border-radius: 3px
-    margin: 0 10px 10px 0
-    float: left
-    min-width:  152px
-    min-height: 152px
   #preview
     min-height: 170px
-    border-bottom: solid 1px #EEE 
+    //border-bottom: solid 1px #EEE 
+    img
+      background: -webkit-gradient(linear,left top,left bottom,from(#F4F4F4),to(#ECECEC))
+      background: -moz-linear-gradient(top,#F4F4F4,#ECECEC)
+      border: solid 1px #e0e0e0
+      box-shadow: 0 0 -1px #fff inset
+      border-radius: 3px
+      margin: 0 10px 10px 0
+      float: left
+      min-width:  152px
+      min-height: 152px
   #description_text
     overflow-y: auto
     overflow-x: hidden
     position: absolute
-    top: 340px
+    top: 350px
     bottom: $padding
     left: $padding
     right: $padding
@@ -114,15 +165,25 @@ body
       padding-left: $padding + 100px
       
       
-      
+body.in3d #description #preview
+  min-height: 0 !important
+  img
+    display: none
+
+body.in3d #description #buttons
+  #run3d
+    img
+      opacity: 1
+
+body.in3d #description #text
+  #description_text
+    display: none
 
 
 #list, #preloader
   right: $padding
   left: 2 * $padding + $left-column
 #list
-  overflow-x: hidden
-  overflow-y: scroll
   table
     width: 100%
     border-collapse: collapse
@@ -142,6 +203,8 @@ body
       float: left
       margin-right: 10px 
       width: $line-height - 10px
+  tr.selected td, tr:hover td,  
+    background: #E6F1F6
 
     
 #preloader

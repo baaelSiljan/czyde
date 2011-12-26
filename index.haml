@@ -2,8 +2,12 @@
   %head
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", :type => "text/javascript"}
     %script{:src => "jquery.nano.js", :type => "text/javascript"}
+    %script{:src => "jquery.base64.js", :type => "text/javascript"}
     %script{:src => "api_wrapper.js", :type => "text/javascript"}
+    %script{:src => "jsc3d.js", :type => "text/javascript"}
     %link{:href => "viewer.css", :media => "all", :rel => "stylesheet", :type => "text/css"}/
+    %title
+      FOnline 3D repo model browser
   %body
     #header
       %a{:href=>'#'}
@@ -14,9 +18,23 @@
         Repository path
     #description
       #preview
-        %img{:src => ''}
+        %img.non3d{:src => ''}
         %h1
         .author
+      %canvas#preview3d.is3d{:width =>  378, :height => 400}
+      #buttons
+        %a#toggle_rotation{:href => '#'}
+          %img{:src => 'rotate.png'}
+        %a{:href => '#'}
+          smooth
+        %a.togglable{:href => '#'}
+          low
+        %a.togglable{:href => '#'}
+          normal
+        %a.togglable{:href => '#'}
+          high
+        %a#run3d{:href => '#'}
+          %img{:src => '3d.png'}
       #text
         %dl
           %dd

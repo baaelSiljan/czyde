@@ -2,8 +2,13 @@
   <head>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' type='text/javascript'></script>
     <script src='jquery.nano.js' type='text/javascript'></script>
+    <script src='jquery.base64.js' type='text/javascript'></script>
     <script src='api_wrapper.js' type='text/javascript'></script>
+    <script src='jsc3d.js' type='text/javascript'></script>
     <link href='viewer.css' media='all' rel='stylesheet' type='text/css' />
+    <title>
+      FOnline 3D repo model browser
+    </title>
   </head>
   <body>
     <div id='header'>
@@ -19,9 +24,30 @@
     </div>
     <div id='description'>
       <div id='preview'>
-        <img src='' />
+        <img class='non3d' src='' />
         <h1></h1>
         <div class='author'></div>
+      </div>
+      <canvas class='is3d' height='400' id='preview3d' width='378'></canvas>
+      <div id='buttons'>
+        <a href='#' id='toggle_rotation'>
+          <img src='rotate.png' />
+        </a>
+        <a href='#'>
+          smooth
+        </a>
+        <a class='togglable' href='#'>
+          low
+        </a>
+        <a class='togglable' href='#'>
+          normal
+        </a>
+        <a class='togglable' href='#'>
+          high
+        </a>
+        <a href='#' id='run3d'>
+          <img src='3d.png' />
+        </a>
       </div>
       <div id='text'>
         <dl>

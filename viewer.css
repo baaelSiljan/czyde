@@ -42,6 +42,10 @@ body {
   top: 60px;
   bottom: 70px; }
 
+#description, #list {
+  overflow-y: auto;
+  overflow-x: hidden; }
+
 #footer {
   position: absolute;
   background: #f8f8f8;
@@ -58,32 +62,76 @@ body {
   #footer img {
     float: left; }
 
+#preview3d {
+  background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#ececec));
+  background: -moz-linear-gradient(top, #f4f4f4, #ececec);
+  border: solid 1px #e0e0e0;
+  box-shadow: 0 0 -1px white inset;
+  border-radius: 3px;
+  margin: 10px 0;
+  display: none; }
+
+.in3d #preview3d {
+  display: block; }
+
 #description {
   width: 400px;
   left: 10px;
   padding: 10px; }
+  #description #buttons {
+    border-radius: 3px;
+    border: solid 1px #cacaca;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#eaeaea));
+    background: -moz-linear-gradient(top, #fafafa, #eaeaea);
+    background: -o-linear-gradient(top, #fafafa, #eaeaea);
+    text-shadow: 0 1px 0 white;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 22px; }
+    #description #buttons a {
+      display: block;
+      float: left;
+      height: 20px;
+      line-height: 20px;
+      text-decoration: none;
+      padding: 0 1em;
+      color: black;
+      border-left: 1px solid #fcfcfc;
+      border-left-color: rgba(255, 255, 255, 0.7);
+      border-right: 1px solid #eeeeee;
+      border-right-color: rgba(0, 0, 0, 0.04);
+      opacity: 0.3; }
+      #description #buttons a img {
+        margin: 2px 0; }
+      #description #buttons a:hover {
+        opacity: 0.9; }
+      #description #buttons a#run3d {
+        border-left: 1px solid #eeeeee;
+        border-left-color: rgba(0, 0, 0, 0.04);
+        border-right: none;
+        float: right; }
+      #description #buttons a.turned_on {
+        opacity: 1; }
   #description h1 {
     margin: 0; }
   #description .author {
     color: #666666; }
-  #description img {
-    background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#ececec));
-    background: -moz-linear-gradient(top, #f4f4f4, #ececec);
-    border: solid 1px #e0e0e0;
-    box-shadow: 0 0 -1px white inset;
-    border-radius: 3px;
-    margin: 0 10px 10px 0;
-    float: left;
-    min-width: 152px;
-    min-height: 152px; }
   #description #preview {
-    min-height: 170px;
-    border-bottom: solid 1px #eeeeee; }
+    min-height: 170px; }
+    #description #preview img {
+      background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#ececec));
+      background: -moz-linear-gradient(top, #f4f4f4, #ececec);
+      border: solid 1px #e0e0e0;
+      box-shadow: 0 0 -1px white inset;
+      border-radius: 3px;
+      margin: 0 10px 10px 0;
+      float: left;
+      min-width: 152px;
+      min-height: 152px; }
   #description #description_text {
     overflow-y: auto;
     overflow-x: hidden;
     position: absolute;
-    top: 340px;
+    top: 350px;
     bottom: 10px;
     left: 10px;
     right: 10px; }
@@ -103,32 +151,42 @@ body {
     #description dl dt {
       padding-left: 110px; }
 
+body.in3d #description #preview {
+  min-height: 0 !important; }
+  body.in3d #description #preview img {
+    display: none; }
+
+body.in3d #description #buttons #run3d img {
+  opacity: 1; }
+
+body.in3d #description #text #description_text {
+  display: none; }
+
 #list, #preloader {
   right: 10px;
   left: 420px; }
 
-#list {
-  overflow-x: hidden;
-  overflow-y: scroll; }
-  #list table {
-    width: 100%;
-    border-collapse: collapse; }
-  #list tr td {
-    background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#ececec));
-    background: -moz-linear-gradient(top, #f4f4f4, #ececec);
-    border-bottom: solid 1px #dddddd;
-    height: 40px;
-    line-height: 30px;
-    padding: 10px;
-    font-size: 11px; }
-    #list tr td a {
-      color: black;
-      text-decoration: none;
-      display: block; }
-    #list tr td img {
-      float: left;
-      margin-right: 10px;
-      width: 30px; }
+#list table {
+  width: 100%;
+  border-collapse: collapse; }
+#list tr td {
+  background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#ececec));
+  background: -moz-linear-gradient(top, #f4f4f4, #ececec);
+  border-bottom: solid 1px #dddddd;
+  height: 40px;
+  line-height: 30px;
+  padding: 10px;
+  font-size: 11px; }
+  #list tr td a {
+    color: black;
+    text-decoration: none;
+    display: block; }
+  #list tr td img {
+    float: left;
+    margin-right: 10px;
+    width: 30px; }
+#list tr.selected td, #list tr:hover td {
+  background: #e6f1f6; }
 
 #preloader {
   background: url(loader.gif) no-repeat center; }
