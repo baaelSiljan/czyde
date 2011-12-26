@@ -3,8 +3,8 @@ class Layout
     @api_url = "https://api.github.com/repos/baael/czyde/"
     @branch = "master"
     @raw_url = "https://raw.github.com/Baael/czyde/"+@branch+"/preview/"
-    @row = '<tr><td><a href="'+@raw_url+'{path}"><img src="'+@raw_url+'{path}/icon.png"/>{path}</td><td></td></tr>'
-    @preview = '<img src="{path}big_icon.png"><h1>{title}</h1><div class="author"></div>'
+    @row = '<tr><td><a id="{path}" href="'+@raw_url+'{path}"><img src="'+@raw_url+'{path}/icon.png"/>{path}</td><td></td></tr>'
+    @preview = '<img src="{path}/big_icon.png"><h1>{title}</h1><div class="author">by {author}</div>'
     @listBindings()
 
   getCurrentHash: ->
@@ -20,9 +20,10 @@ class Layout
     self = @
     $('#list a').live 'click', (e)->
       e.preventDefault()
-      element = {} 
-      element.path = $(this).attr('href')
-      element.title = $(this).text().replace(/_/gi,' ')
+      enumerator = $(this).attr('id')
+      element = details[enumerator]
+      element.path = self.raw_url+enumerator
+      
       
       $('#preview').html($.nano(self.preview, element))
       

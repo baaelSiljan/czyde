@@ -4,8 +4,8 @@
     this.api_url = "https://api.github.com/repos/baael/czyde/";
     this.branch = "master";
     this.raw_url = "https://raw.github.com/Baael/czyde/" + this.branch + "/preview/";
-    this.row = '<tr><td><a href="' + this.raw_url + '{path}"><img src="' + this.raw_url + '{path}/icon.png"/>{path}</td><td></td></tr>';
-    this.preview = '<img src="{path}big_icon.png"><h1>{title}</h1><div class="author"></div>';
+    this.row = '<tr><td><a id="{path}" href="' + this.raw_url + '{path}"><img src="' + this.raw_url + '{path}/icon.png"/>{path}</td><td></td></tr>';
+    this.preview = '<img src="{path}/big_icon.png"><h1>{title}</h1><div class="author">by {author}</div>';
     this.listBindings();
     return this;
   };
@@ -32,11 +32,11 @@
     var self;
     self = this;
     return $('#list a').live('click', function(e) {
-      var element;
+      var element, enumerator;
       e.preventDefault();
-      element = {};
-      element.path = $(this).attr('href');
-      element.title = $(this).text().replace(/_/gi, ' ');
+      enumerator = $(this).attr('id');
+      element = details[enumerator];
+      element.path = self.raw_url + enumerator;
       $('#preview').html($.nano(self.preview, element));
       return false;
     });
