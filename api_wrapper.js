@@ -39,6 +39,11 @@
   $(document).ready(function() {
     var layout;
     layout = new Layout();
-    return layout.listPreview();
+    layout.listPreview();
+    return layout.getJSONP('https://raw.github.com/Baael/czyde/master/preview/jacket/author.json', function(data) {
+      var a;
+      a = data;
+      return console.log(a);
+    });
   });
 })();
