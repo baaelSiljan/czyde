@@ -7,6 +7,14 @@ class Layout
     @preview = '<img src="{path}big_icon.png"><h1>{title}</h1><div class="author"></div>'
     @listBindings()
 
+  getCurrentHash: ->
+    self = @
+    @getJSONP @api_url+'git/trees/master', (data) ->
+      self.sha = item.sha for item in data.data.tree when item.path is "preview"  
+      self.listPreview()
+
+  fetchData: ->
+    @getCurrentHash()
 
   listBindings: ->
     self = @
@@ -37,7 +45,7 @@ class Layout
 
   listPreview: ->
     self = @
-    @getJSONP @api_url+'git/trees/ccde406bbdc3c73f335339fd277894e5ee5861d9?'+Math.floor(Math.random()*10000000), (data)->
+    @getJSONP @api_url+'git/trees/'+@sha+'?'+Math.floor(Math.random()*10000000), (data)->
       self.addElement item for item in data.data.tree
 
 
@@ -45,7 +53,8 @@ class Layout
 $(document).ready ->
   jQuery.support.cors = false
   layout = new Layout()
-  layout.listPreview();
+  layout.fetchData()
+  
   window.req = $.ajax {
     url: 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json'
     type: 'GET'

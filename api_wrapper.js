@@ -9,6 +9,25 @@
     this.listBindings();
     return this;
   };
+  Layout.prototype.getCurrentHash = function() {
+    var self;
+    self = this;
+    return this.getJSONP(this.api_url + 'git/trees/master', function(data) {
+      var _a, _b, _c, _d, item;
+      self.sha = (function() {
+        _a = []; _c = data.data.tree;
+        for (_b = 0, _d = _c.length; _b < _d; _b++) {
+          item = _c[_b];
+          item.path === "preview" ? _a.push(item.sha) : null;
+        }
+        return _a;
+      })();
+      return self.listPreview();
+    });
+  };
+  Layout.prototype.fetchData = function() {
+    return this.getCurrentHash();
+  };
   Layout.prototype.listBindings = function() {
     var self;
     self = this;
@@ -41,7 +60,7 @@
   Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP(this.api_url + 'git/trees/ccde406bbdc3c73f335339fd277894e5ee5861d9?' + Math.floor(Math.random() * 10000000), function(data) {
+    return this.getJSONP(this.api_url + 'git/trees/' + this.sha + '?' + Math.floor(Math.random() * 10000000), function(data) {
       var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
@@ -56,7 +75,7 @@
     var layout;
     jQuery.support.cors = false;
     layout = new Layout();
-    layout.listPreview();
+    layout.fetchData();
     window.req = $.ajax({
       url: 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json',
       type: 'GET',
