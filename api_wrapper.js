@@ -41,9 +41,7 @@
     layout = new Layout();
     layout.listPreview();
     return layout.getJSONP('https://raw.github.com/Baael/czyde/master/preview/jacket/author.json', function(data) {
-      var a;
-      a = data;
-      return console.log(a);
+      return console.log('a');
     });
   });
 })();

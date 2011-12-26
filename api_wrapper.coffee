@@ -27,7 +27,6 @@ $(document).ready ->
   layout = new Layout()
   layout.listPreview();
   layout.getJSONP 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json', (data)->
-    a = data;
-    console.log(a)
+    console.log('a')
 
   
