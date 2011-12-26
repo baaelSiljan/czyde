@@ -1,28 +1,119 @@
-$left-column: 500px
+$left-column: 400px
 $preview-height: 500px
-$padding: 5px
+$padding: 10px
+
+$header-height: 40px 
+$footer-height: 50px
+
+$line-height: 40px
 
 body
   margin: 0
   padding: 0
-  font: 13.34px helvetica,arial,freesans,clean,sans-serif
+  font: 11px helvetica,arial,freesans,clean,sans-serif
   line-height: 1.4
   *
     box-sizing: border-box
+#header
+  top: $padding
+  height: $header-height
+  left: $padding
+  right: $padding
+  border: solid 1px #CACACA
+  border-radius: 3px
+  position: absolute
+  background: -webkit-gradient(linear,left top,left bottom,from(#FAFAFA),to(#EAEAEA))
+  background: -moz-linear-gradient(top,#FAFAFA,#EAEAEA)
+  background: -o-linear-gradient(top,#FAFAFA,#EAEAEA)
+  box-shadow: 0 1px 0 rgba(255,255,255,0.4),0 0 10px rgba(0,0,0,0.1)
+  font-size: 12px
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 1.0)
+  color: #000
+  font-weight: bold
+  a
+    display: block
+    float: left
+    height: $header-height - 2px
+    line-height: $header-height - 2px
+    text-decoration: none
+    padding: 0 2em
+    color: #636363
+    border-right: 1px solid #EEE
+    border-right-color: rgba(0, 0, 0, 0.04)
+    border-left: 1px solid #FCFCFC
+    border-left-color: rgba(255, 255, 255, 0.7)
+  
 
 #description, #list, #preloader
-  border: solid 1px #ccc
+  border: solid 1px #ddd
+  border-radius: 3px
   position: absolute
-  top: $padding
-  bottom: $padding
+  top: $header-height + 2 * $padding
+  bottom: $footer-height + ($padding * 2)
+
+#footer
+  position: absolute
+  background: #f8f8f8
+  height: $footer-height
+  left: $padding
+  right: $padding
+  bottom:  $padding
+  border: solid 1px #e0e0e0
+  box-shadow: 0 0 -1px #fff inset
+  text-align: right
+  font-size: 11px
+  color: #ccc
+  padding: 2px 5px
+  img
+    float: left
+
 
 #description
   width: $left-column
   left: $padding
+  padding: $padding
+  h1
+    margin: 0
+  .author
+    color: #666
+  img
+    background: -webkit-gradient(linear,left top,left bottom,from(#F4F4F4),to(#ECECEC))
+    background: -moz-linear-gradient(top,#F4F4F4,#ECECEC)
+    border: solid 1px #e0e0e0
+    box-shadow: 0 0 -1px #fff inset
+    border-radius: 3px
+    margin: 0 10px 10px 0
+    float: left
+  #preview
+    min-height: 170px
+    border-bottom: solid 1px #EEE 
 
 #list, #preloader
   right: $padding
   left: 2 * $padding + $left-column
+#list
+  overflow-x: hidden
+  overflow-y: scroll
+  table
+    width: 100%
+    border-collapse: collapse
+  tr td
+    background: -webkit-gradient(linear,left top,left bottom,from(#F4F4F4),to(#ECECEC))
+    background: -moz-linear-gradient(top,#F4F4F4,#ECECEC)
+    border-bottom: solid 1px #DDD
+    height: $line-height
+    line-height: $line-height - 10px
+    padding: $padding
+    font-size: 11px
+    a
+      color: #000
+      text-decoration: none
+      display: block
+    img
+      float: left
+      margin-right: 10px 
+      width: $line-height - 10px
+
     
 #preloader
   background: url(loader.gif) no-repeat center

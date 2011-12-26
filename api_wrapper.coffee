@@ -14,11 +14,11 @@ class Layout
 
   addElement: (element)->
     link = 'https://github.com/Baael/czyde/tree/master/preview/'+element.path
-    $('#list').append('<div><a href="'+link+'"><img src="mask_ico.png" width="30" height="30"/>'+element.path+'</a></div>')
+    $('#list tbody').append('<tr><td><a href="'+link+'"><img src="mask_ico.png"/>'+element.path+'</td><td></td></tr>')
     $('#preloader').hide()
   listPreview: ->
     self = @
-    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/6588676f616497374bdc7f4afe46c353707c3aee?'+Math.floor(Math.random()*10000000), (data)->
+    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/80f450924e236248ee49498f7e600a768976ee71?'+Math.floor(Math.random()*10000000), (data)->
       self.addElement item for item in data.data.tree
 
 
