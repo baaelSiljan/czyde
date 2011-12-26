@@ -18,7 +18,7 @@ class Layout
     $('#preloader').hide()
   listPreview: ->
     self = @
-    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/674c93394dbb996c72b51f4f9096913f20813a75?'+Math.floor(Math.random()*10000000), (data)->
+    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/841b2f42aced06a23c235fa18aea53aeb738242a?'+Math.floor(Math.random()*10000000), (data)->
       self.addElement item for item in data.data.tree
 
 
@@ -27,6 +27,6 @@ $(document).ready ->
   layout = new Layout()
   layout.listPreview();
   layout.getJSONP 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json', (data)->
-    console.log('a')
+    console.log(data)
 
   
