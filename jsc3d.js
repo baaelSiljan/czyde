@@ -51,8 +51,8 @@ JSC3D.Viewer = function(canvas) {
 		InitRotationY: 0, 
 		InitRotationZ: 0, 
 		ModelColor: '#caa618', 
-		BackgroundColor1: '#ffffff', 
-		BackgroundColor2: '#383840', 
+		BackgroundColor1: '#F4F4F4', 
+		BackgroundColor2: '#ECECEC', 
 		RenderMode: 'flat', 
 		Definition: 'standard', 
 		MipMapping: 'off', 
@@ -584,6 +584,9 @@ JSC3D.Viewer.prototype.loadScene = function() {
 	loader.onload = function(scene) {
 		self.setupScene(scene);
 	};
+	loader.setupSceneFromObj = function(scene) {
+		self.setupScene(scene);
+	};
 
 	loader.onerror = function(errorMsg) {
 		self.scene = null;
@@ -603,7 +606,60 @@ JSC3D.Viewer.prototype.loadScene = function() {
 		self.update();
 	};
 
-	loader.loadFromUrl(this.sceneUrl);
+	loader.parseObjFile();
+
+	return true;
+};
+
+JSC3D.Viewer.prototype.setScene = function(obj, mtl, texture) {
+	this.scene = null;
+	this.isLoaded = false;
+
+	//if(this.sceneUrl == '')
+	//	return false;
+
+	var lastSlashAt = this.sceneUrl.lastIndexOf('/');
+	if(lastSlashAt == -1)
+		lastSlashAt = this.sceneUrl.lastIndexOf('\\');
+	
+	var fileName = this.sceneUrl.substring(lastSlashAt + 1);
+	var lastDotAt = fileName.lastIndexOf('.');
+	//if(lastDotAt == -1)
+	//	return false;
+
+	var fileExtName = fileName.substring(lastDotAt + 1);
+	var loader = JSC3D.LoaderSelector.getLoader('obj');
+	//if(!loader)
+	//	return false;
+
+	var self = this;
+
+	loader.onload = function(scene) {
+		self.setupScene(scene);
+	};
+	loader.setupSceneFromObj = function(scene) {
+		self.setupScene(scene);
+	};
+
+	loader.onerror = function(errorMsg) {
+		self.scene = null;
+		self.isLoaded = false;
+		self.isFailed = true;
+		self.errorMsg = errorMsg;
+		self.update();
+	};
+
+	loader.onprogress = function(task, prog) {
+		self.reportProgress(task, prog);
+	};
+
+	loader.onresource = function(resource) {
+		if((resource instanceof JSC3D.Texture) && self.isMipMappingOn && !resource.hasMipmap())
+			resource.generateMipmaps();		
+		self.update();
+	};
+
+	loader.parseObjFile(obj, mtl, texture);
 
 	return true;
 };
@@ -3728,10 +3784,39 @@ JSC3D.ObjLoader.prototype.loadFromUrl = function(urlName) {
 	Load scene from the obj file using the given url path and file name.
 	@private
 */
+JSC3D.ObjLoader.prototype.parseObjFile = function(obj, mtl, texture) {
+var self = this;
+console.log(mtl)
+var scene = new JSC3D.Scene;
+var mtllibs = self.parseObj(scene, obj);
+				var mtls = self.parseMtl(mtl);
+				var textures = {};
+				var meshes = scene.getChildren();
+				for(var i=0; i<meshes.length; i++) {
+					var mesh = meshes[i];
+					if(mesh.mtl != null && mesh.mtllib != null ) {
+						var mtl = mtls[mesh.mtl];
+						if(mtl != null) {
+							if(mtl.material != null)
+								mesh.setMaterial(mtl.material);
+							if(mtl.textureFileName != '') {
+								if(!textures[mtl.textureFileName])
+									textures[mtl.textureFileName] = [mesh];
+								else
+									textures[mtl.textureFileName].push(mesh);
+							}
+						}
+					}
+				}
+				for(var textureFileName in textures)
+					self.setupTexture(textures[textureFileName], texture);
+self.setupSceneFromObj(scene)
+
+}
 JSC3D.ObjLoader.prototype.loadObjFile = function(urlPath, fileName) {
 	var urlName = urlPath + fileName;
 	var self = this;
-	var xhr = new XMLHttpRequest;
+	var xhr = $.ajax({url: url, dataType: 'jsonp'});
 	xhr.open('GET', urlName, true);
 
 	xhr.onreadystatechange = function() {
@@ -3775,10 +3860,11 @@ JSC3D.ObjLoader.prototype.loadObjFile = function(urlPath, fileName) {
 JSC3D.ObjLoader.prototype.loadMtlFile = function(scene, urlPath, fileName) {
 	var urlName = urlPath + fileName;
 	var self = this;
-	var xhr = new XMLHttpRequest;
-	xhr.open('GET', urlName, true);
-
-	xhr.onreadystatechange = function() {
+	var xhr = $.ajax({url: url, dataType: 'jsonp'});
+	//xhr.open('GET', urlName, true);
+	
+	
+	xhr.complete = function() {
 		if(this.readyState == 4) {
 			if(this.status == 200 || this.status == 0) {
 				if(self.onprogress)
@@ -3847,10 +3933,10 @@ JSC3D.ObjLoader.prototype.parseObj = function(scene, data) {
 	defaultMesh.indexBuffer = [];
 	meshes['nomtl'] = defaultMesh;
 	curMesh = defaultMesh;
-
 	var lines = data.split("\n");
 	for(var i=0; i<lines.length; i++) {
 		var line = lines[i];
+		
 		var tokens = line.split(' ');
 		if(tokens.length > 0) {
 			var keyword = tokens[0];
@@ -3869,6 +3955,7 @@ JSC3D.ObjLoader.prototype.parseObj = function(scene, data) {
 				break;
 			case 'f':
 				for(var j=1; j<tokens.length; j++) {
+					
 					var refs = tokens[j].split('/');
 					curMesh.indexBuffer.push( parseInt(refs[0]) - 1 );
 					if(refs.length > 1 && refs[1] != '') {
@@ -3990,7 +4077,7 @@ JSC3D.ObjLoader.prototype.parseObj = function(scene, data) {
 JSC3D.ObjLoader.prototype.parseMtl = function(data) {
 	var mtls = {};
 	var curMtlName = '';
-
+	console.log(data)
 	var lines = data.split("\n");
 	for(var i=0; i<lines.length; i++) {
 		var line = lines[i];

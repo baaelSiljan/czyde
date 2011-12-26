@@ -44,7 +44,7 @@ body
     border-left-color: rgba(255, 255, 255, 0.7)
   
 
-#description, #list, #preloader
+#description, #list, #preloader, #preloader_left
   border: solid 1px #ddd
   border-radius: 3px
   position: absolute
@@ -85,9 +85,10 @@ body
   display: block
 
 
-#description
+#description, #preloader_left
   width: $left-column
   left: $padding
+#description
   padding: $padding
   #buttons
     border-radius: 3px
@@ -207,6 +208,6 @@ body.in3d #description #text
     background: #E6F1F6
 
     
-#preloader
-  background: url(loader.gif) no-repeat center
+#preloader, #preloader_left
+  background: rgba(255,255,255,0.9) url(loader.gif) no-repeat center
   

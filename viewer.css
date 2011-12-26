@@ -35,7 +35,7 @@ body {
     border-left: 1px solid #fcfcfc;
     border-left-color: rgba(255, 255, 255, 0.7); }
 
-#description, #list, #preloader {
+#description, #list, #preloader, #preloader_left {
   border: solid 1px #dddddd;
   border-radius: 3px;
   position: absolute;
@@ -74,9 +74,11 @@ body {
 .in3d #preview3d {
   display: block; }
 
-#description {
+#description, #preloader_left {
   width: 400px;
-  left: 10px;
+  left: 10px; }
+
+#description {
   padding: 10px; }
   #description #buttons {
     border-radius: 3px;
@@ -188,5 +190,5 @@ body.in3d #description #text #description_text {
 #list tr.selected td, #list tr:hover td {
   background: #e6f1f6; }
 
-#preloader {
-  background: url(loader.gif) no-repeat center; }
+#preloader, #preloader_left {
+  background: rgba(255, 255, 255, 0.9) url(loader.gif) no-repeat center; }

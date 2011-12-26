@@ -106,8 +106,12 @@
   Layout.prototype.previewBindings = function() {
     $('#buttons a').live('click', function(e) {
       if (($('body').hasClass('in3d'))) {
-        ($(this).hasClass('togglable')) ? $('.togglable').removeClass('turned_on') : null;
-        $(this).addClass('turned_on');
+        if (($(this).hasClass('togglable'))) {
+          $('.togglable').removeClass('turned_on');
+          $(this).addClass('turned_on');
+        } else {
+          $(this).toggleClass('turned_on');
+        }
       }
       e.preventDefault();
       return false;
@@ -130,16 +134,16 @@
       $('.selected').removeClass('selected');
       $(this).parents('tr').addClass('selected');
       e.preventDefault();
-      //element = details[enumerator]
-      //element.path = self.raw_url+enumerator
+      $('#preloader_left').show();
       item = self.list[$(this).attr('id')];
-      console.log(item.items['author.json'].url);
-      self.getAndDecode(item.items['author.json'].url, function(content) {
-        return console.log(content);
-        //self.getJSONP item
-        //$('#preview').html($.nano(self.preview, element))
-        //$('#text').html($.nano(self.dl, element))
-      });
+      item.items['author.json'] ? self.getAndDecode(item.items['author.json'].url, function(content) {
+        eval("details = " + content);
+        details.path = self.raw_url + item.path;
+        item.details = details;
+        $('#preview').html($.nano(self.preview, item.details));
+        $('#text').html($.nano(self.dl, item.details));
+        return $('#preloader_left').hide();
+      }) : null;
       return false;
     });
   };
@@ -179,7 +183,20 @@
     window.layout = new Layout();
     window.layout.fetchData();
     window.viewer = new Viewer3d();
-    //viewer.loadScene('https://raw.github.com/Baael/czyde/master/preview/jacket/object.obj')
+    window.viewer.place();
+    window.viewer.refresh();
+    layout.getAndDecode('https://api.github.com/repos/Baael/czyde/git/blobs/d5d5e63685c32356550a373b02e0ed3793b5e93c', function(data) {
+      window.loaded_obj = data;
+      return window.loaded_obj;
+    });
+    layout.getAndDecode('https://api.github.com/repos/Baael/czyde/git/blobs/9540b67535a1069b65dd5833cc7b0c1d0b754f26', function(data) {
+      window.loaded_mtl = data;
+      return window.loaded_mtl;
+    });
+    layout.getAndDecode('https://api.github.com/repos/Baael/czyde/git/blobs/52eaf33f6f283e93cf5878142b83d2de195def3f', function(data) {
+      window.loaded_texture = data;
+      return window.loaded_texture;
+    });
     //window.req = $.ajax {
     //  url: 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json'
     //  type: 'GET'
