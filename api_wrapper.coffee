@@ -18,7 +18,7 @@ class Layout
     $('#preloader').hide()
   listPreview: ->
     self = @
-    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/eaf12db12b0fd278a649d864a664cf73cf9e69a7?'+Math.floor(Math.random()*10000000), (data)->
+    @getJSONP 'https://api.github.com/repos/Baael/czyde/git/trees/1c5e04b2838a42bfd77c5c1543f2d58814ca40db?'+Math.floor(Math.random()*10000000), (data)->
       self.addElement item for item in data.data.tree
 
 
