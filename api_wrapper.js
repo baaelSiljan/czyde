@@ -1,8 +1,26 @@
 (function(){
   var Layout;
   Layout = function() {
-    this.address = "https://api.github.com/repos/baael/czyde/";
+    this.api_url = "https://api.github.com/repos/baael/czyde/";
+    this.branch = "master";
+    this.raw_url = "https://raw.github.com/Baael/czyde/" + this.branch + "/preview/";
+    this.row = '<tr><td><a href="' + this.raw_url + '{path}"><img src="' + this.raw_url + '{path}/icon.png"/>{path}</td><td></td></tr>';
+    this.preview = '<img src="{path}big_icon.png"><h1>{title}</h1><div class="author"></div>';
+    this.listBindings();
     return this;
+  };
+  Layout.prototype.listBindings = function() {
+    var self;
+    self = this;
+    return $('#list a').live('click', function(e) {
+      var element;
+      e.preventDefault();
+      element = {};
+      element.path = $(this).attr('href');
+      element.title = $(this).text().replace(/_/gi, ' ');
+      $('#preview').html($.nano(self.preview, element));
+      return false;
+    });
   };
   Layout.prototype.getJSONP = function(url, callback) {
     var data, self;
@@ -17,15 +35,13 @@
     return $.ajax(data);
   };
   Layout.prototype.addElement = function(element) {
-    var link;
-    link = 'https://github.com/Baael/czyde/tree/master/preview/' + element.path;
-    $('#list tbody').append('<tr><td><a href="' + link + '"><img src="mask_ico.png"/>' + element.path + '</td><td></td></tr>');
+    $('#list tbody').append($.nano(this.row, element));
     return $('#preloader').hide();
   };
   Layout.prototype.listPreview = function() {
     var self;
     self = this;
-    return this.getJSONP('https://api.github.com/repos/Baael/czyde/git/trees/6b076b2e6ec8013f13e9b43b6e97d2c72538b397?' + Math.floor(Math.random() * 10000000), function(data) {
+    return this.getJSONP(this.api_url + 'git/trees/ccde406bbdc3c73f335339fd277894e5ee5861d9?' + Math.floor(Math.random() * 10000000), function(data) {
       var _a, _b, _c, _d, item;
       _a = []; _c = data.data.tree;
       for (_b = 0, _d = _c.length; _b < _d; _b++) {
@@ -38,16 +54,31 @@
 
   $(document).ready(function() {
     var layout;
+    jQuery.support.cors = false;
     layout = new Layout();
     layout.listPreview();
-    return $.ajax({
+    window.req = $.ajax({
       url: 'https://raw.github.com/Baael/czyde/master/preview/jacket/author.json',
       type: 'GET',
       dataType: 'jsonp',
-      mimeType: 'application/text',
-      complete: function(data) {
-        return console.log(data);
+      success: function(xhr, data, b) {
+        return console.log(xhr);
       }
+    });
+    window.req.getResponseHeader = function() {
+      return 'application/json; charset=utf-8';
+    };
+    window.req.getAllResponseHeaders = function() {
+      return 'application/json; charset=utf-8';
+    };
+    window.req.pipe(function(a, b, c) {
+      return alert('aa');
+    });
+    window.req.always(function(a, b, c, d) {
+      return console.log(c);
+    });
+    return window.req.error(function(a, b) {
+      return console.log('Oh noes!');
     });
   });
 })();
