@@ -84,9 +84,38 @@ body
     border-radius: 3px
     margin: 0 10px 10px 0
     float: left
+    min-width:  152px
+    min-height: 152px
   #preview
     min-height: 170px
     border-bottom: solid 1px #EEE 
+  #description_text
+    overflow-y: auto
+    overflow-x: hidden
+    position: absolute
+    top: 340px
+    bottom: $padding
+    left: $padding
+    right: $padding
+  dl
+    border-top: solid 1px #EEE
+    dt, dd 
+      border-bottom: solid 1px #EEE
+      line-height: 1.8em
+      min-height: 20px
+    dd
+      margin: 0
+      font-weight: bold
+      float: left
+      background: #eee
+      clear: left
+      width: 100px
+    dt
+      padding-left: $padding + 100px
+      
+      
+      
+
 
 #list, #preloader
   right: $padding

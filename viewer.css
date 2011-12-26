@@ -73,10 +73,35 @@ body {
     box-shadow: 0 0 -1px white inset;
     border-radius: 3px;
     margin: 0 10px 10px 0;
-    float: left; }
+    float: left;
+    min-width: 152px;
+    min-height: 152px; }
   #description #preview {
     min-height: 170px;
     border-bottom: solid 1px #eeeeee; }
+  #description #description_text {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 340px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px; }
+  #description dl {
+    border-top: solid 1px #eeeeee; }
+    #description dl dt, #description dl dd {
+      border-bottom: solid 1px #eeeeee;
+      line-height: 1.8em;
+      min-height: 20px; }
+    #description dl dd {
+      margin: 0;
+      font-weight: bold;
+      float: left;
+      background: #eeeeee;
+      clear: left;
+      width: 100px; }
+    #description dl dt {
+      padding-left: 110px; }
 
 #list, #preloader {
   right: 10px;
