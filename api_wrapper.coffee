@@ -51,6 +51,7 @@ class Layout
 
 
 $(document).ready ->
+  window.details = {}
   jQuery.support.cors = false
   layout = new Layout()
   layout.fetchData()
@@ -62,16 +63,3 @@ $(document).ready ->
     success : (xhr,data,b)->
       console.log(xhr)
     }
-
-
-  window.req.getResponseHeader = ->
-    'application/json; charset=utf-8'
-
-  window.req.getAllResponseHeaders = ->
-    'application/json; charset=utf-8'
-  window.req.pipe (a,b,c) ->
-    alert('aa')
-  window.req.always (a,b,c,d) ->
-    console.log(c)
-  window.req.error (a,b) ->
-    console.log('Oh noes!')

@@ -73,6 +73,7 @@
 
   $(document).ready(function() {
     var layout;
+    window.details = {};
     jQuery.support.cors = false;
     layout = new Layout();
     layout.fetchData();
@@ -84,20 +85,6 @@
         return console.log(xhr);
       }
     });
-    window.req.getResponseHeader = function() {
-      return 'application/json; charset=utf-8';
-    };
-    window.req.getAllResponseHeaders = function() {
-      return 'application/json; charset=utf-8';
-    };
-    window.req.pipe(function(a, b, c) {
-      return alert('aa');
-    });
-    window.req.always(function(a, b, c, d) {
-      return console.log(c);
-    });
-    return window.req.error(function(a, b) {
-      return console.log('Oh noes!');
-    });
+    return window.req;
   });
 })();
